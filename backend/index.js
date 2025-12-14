@@ -1,9 +1,10 @@
 const express = require("express");
 
 const app = express();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Sweet Shop Backend Running");
+app.post("/api/auth/register", (req, res) => {
+  res.status(201).json({ message: "User registered successfully" });
 });
 
 app.listen(3000, () => {
