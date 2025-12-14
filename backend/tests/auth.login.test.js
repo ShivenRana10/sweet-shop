@@ -5,10 +5,7 @@ describe("Auth Login API", () => {
   it("should login an existing user", async () => {
     const response = await request(app)
       .post("/api/auth/login")
-      .send({
-        email: "test@example.com",
-        password: "password123"
-      });
+      .send({ email: "test@test.com", password: "123456" });
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toHaveProperty("token");

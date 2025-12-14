@@ -6,20 +6,24 @@ const request = require("supertest");
 const jwt = require("jsonwebtoken");
 const app = require("../src/app");
 
-describe("JWT Auth Middleware", () => {
-  it("should allow access with valid token", async () => {
-    jwt.verify.mockReturnValue({ id: "user123" });
+describe("Admin Middleware", () => {
+  it("should allow admin access", async () => {
+    jwt.verify.mockReturnValue({ id: "1", role: "admin" });
 
     const response = await request(app)
-      .get("/api/protected")
-      .set("Authorization", "Bearer validtoken");
+      .get("/api/admin/dashboard")
+      .set("Authorization", "Bearer admintoken");
 
     expect(response.statusCode).toBe(200);
-    expect(response.body).toHaveProperty("message");
   });
 
-  it("should block access without token", async () => {
-    const response = await request(app).get("/api/protected");
-    expect(response.statusCode).toBe(401);
+  it("should block non-admin access", async () => {
+    jwt.verify.mockReturnValue({ id: "1", role: "user" });
+
+    const response = await request(app)
+      .get("/api/admin/dashboard")
+      .set("Authorization", "Bearer usertoken");
+
+    expect(response.statusCode).toBe(403);
   });
 });
