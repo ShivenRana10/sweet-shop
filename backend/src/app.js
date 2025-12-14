@@ -1,14 +1,9 @@
 const express = require("express");
+const authRoutes = require("./routes/auth.routes");
 
 const app = express();
 app.use(express.json());
 
-app.post("/api/auth/register", (req, res) => {
-  res.status(201).json({ message: "User registered successfully" });
-});
-
-app.post("/api/auth/login", (req, res) => {
-  res.status(200).json({ token: "fake-jwt-token" });
-});
+app.use("/api/auth", authRoutes);
 
 module.exports = app;
