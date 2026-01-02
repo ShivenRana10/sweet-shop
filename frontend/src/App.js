@@ -1,23 +1,20 @@
-import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Navbar from "./components/Navbar";
-import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-
-import "./styles/main.css";
+import Cart from "./pages/Cart";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
-
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <CartProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 
 export default App;
+// Project maintenance update – continuing development and improvements
